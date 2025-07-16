@@ -35,6 +35,7 @@ function contarClientesActivos(clientes) {
   });
   return contador;
 }
+console.log(`Cantidad de clientes activos: ${contarClientesActivos(clientes)}`); // Ejemplo de uso
 
 // 5) Agregar un nuevo cliente al arreglo usando push
 function agregarCliente(id, nombre, apellido, email, telefono, activo) {
@@ -42,6 +43,9 @@ function agregarCliente(id, nombre, apellido, email, telefono, activo) {
   clientes.push(nuevoCliente);
   return clientes;
 }
+console.log(`Se agregó el cliente al final: `);
+agregarCliente(5, "Ana", "Pérez", "ana@gmail.com", "123123123", true);
+mostrarClientes(clientes);
 
 // 6) Eliminar un cliente por su id usando splice
 function eliminarClientePorId(id) {
@@ -52,6 +56,9 @@ function eliminarClientePorId(id) {
   }
   return false; // Cliente no encontrado
 }
+eliminarClientePorId(5); // Ejemplo de uso
+console.log(`Se eliminó el cliente con id 5:`);
+mostrarClientes(clientes);
 
 // 7 Función para modificar los datos de un cliente por id
 function modificarCliente(id, nuevosDatos) {
