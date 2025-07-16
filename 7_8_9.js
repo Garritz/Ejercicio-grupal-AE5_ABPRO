@@ -25,6 +25,33 @@ function mostrarClientes(clientes) {
     console.log(`Nombre: ${c.nombre} ${c.apellido}, Email: ${c.email}, Teléfono: ${c.telefono}`);
   }
 }
+// 4) Contar clientes con activo igual a true usando forEach
+function contarClientesActivos(clientes) {
+  let contador = 0;
+  clientes.forEach(cliente => {
+    if (cliente.activo === true) {
+      contador++;
+    }
+  });
+  return contador;
+}
+
+// 5) Agregar un nuevo cliente al arreglo usando push
+function agregarCliente(id, nombre, apellido, email, telefono, activo) {
+  const nuevoCliente = new Cliente(id, nombre, apellido, email, telefono, activo);
+  clientes.push(nuevoCliente);
+  return clientes;
+}
+
+// 6) Eliminar un cliente por su id usando splice
+function eliminarClientePorId(id) {
+  const index = clientes.findIndex(cliente => cliente.id === id);
+  if (index !== -1) {
+    clientes.splice(index, 1);
+    return true; // Cliente eliminado exitosamente
+  }
+  return false; // Cliente no encontrado
+}
 
 // 7 Función para modificar los datos de un cliente por id
 function modificarCliente(id, nuevosDatos) {
