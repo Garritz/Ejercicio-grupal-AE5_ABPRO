@@ -1,55 +1,3 @@
-<<<<<<< HEAD
-let clientes = [];
-
-clientes.push(
-  { id: 1, nombre: "Ana", apellido: "Gómez", email: "ana@email.com", telefono: "12345678", activo: true },
-  { id: 2, nombre: "Luis", apellido: "Ramírez", email: "luis@email.com", telefono: "87654321", activo: false },
-  { id: 3, nombre: "Marta", apellido: "Pérez", email: "marta@email.com", telefono: "11223344", activo: true }
-);
-
-
-
-function mostrarClientes() {
-  clientes.forEach(cliente => {
-    console.log(`ID: ${cliente.id}, Nombre: ${cliente.nombre}, Apellido: ${cliente.apellido}, Email: ${cliente.email}, Telefono: ${cliente.telefono}, Activo: ${cliente.activo}`);
-  });
-}
-
-
-function agregarCliente(id, nombre, apellido, email, telefono, activo) {
-  const nuevoCliente = { id, nombre, apellido, email, telefono, activo };
-  clientes.push(nuevoCliente);
-  console.log(`Cliente agregado: ${nombre} ${apellido}`);
-}
-function eliminarCliente(id) {
-  const index = clientes.findIndex(cliente => cliente.id === id);
-  if (index !== -1) {
-    const eliminado = clientes.splice(index, 1);
-    console.log(`Cliente eliminado: ${eliminado[0].nombre} ${eliminado[0].apellido}`);
-  } else {
-    console.log(`Cliente con ID ${id} no encontrado.`);
-  }
-}
-
-function actualizarCliente(id, nombre, apellido, email, telefono, activo) {
-  const index = clientes.findIndex(cliente => cliente.id === id);
-  if (index !== -1) {
-    clientes[index] = { id, nombre, apellido, email, telefono, activo };
-    console.log(`Cliente actualizado: ${nombre} ${apellido}`);
-  } else {
-    console.log(`Cliente con ID ${id} no encontrado.`);
-  }
-}
-mostrarClientes();
-actualizarCliente(1, "Ana", "Gómez", "ana.nuevo@email.com", "56566666", false);
-
-mostrarClientes();
-agregarCliente(4, "Carlos", "López", "carlos@email.com", "99887766", true);
-mostrarClientes();
-
-eliminarCliente(2);
-mostrarClientes();  
-=======
 // 1) Definir la estructura de un objeto cliente
 class Cliente {
   constructor(id, nombre, apellido, email, telefono, activo) {
@@ -77,7 +25,6 @@ function mostrarClientes(clientes) {
     console.log(`Nombre: ${c.nombre} ${c.apellido}, Email: ${c.email}, Teléfono: ${c.telefono}`);
   }
 }
-
 // 4) Contar clientes con activo igual a true usando forEach
 function contarClientesActivos(clientes) {
   let contador = 0;
@@ -105,4 +52,98 @@ function eliminarClientePorId(id) {
   }
   return false; // Cliente no encontrado
 }
->>>>>>> e4927c197eeea0423054eee6829011d05b16d15e
+
+// 7 Función para modificar los datos de un cliente por id
+function modificarCliente(id, nuevosDatos) {
+  const cliente = clientes.find(c => c.id === id);
+  if (cliente) {
+    if (nuevosDatos.nombre !== undefined) cliente.nombre = nuevosDatos.nombre;
+    if (nuevosDatos.apellido !== undefined) cliente.apellido = nuevosDatos.apellido;
+    if (nuevosDatos.email !== undefined) cliente.email = nuevosDatos.email;
+    if (nuevosDatos.telefono !== undefined) cliente.telefono = nuevosDatos.telefono;
+    if (nuevosDatos.activo !== undefined) cliente.activo = nuevosDatos.activo;
+    console.log(`Cliente con id ${id} modificado correctamente.`);
+  } else {
+    console.log(`Cliente con id ${id} no encontrado.`);
+  }
+}
+mostrarClientes(clientes);
+// Ejemplo de uso:
+modificarCliente(2, { telefono: "1111111111111", activo: true });
+mostrarClientes(clientes);
+
+
+// 8) Mostrar los clientes inactivos
+let inactivos = clientes.filter(c => !c.activo);
+console.log("Clientes inactivos:");
+inactivos.forEach(c => {
+  console.log(`Nombre: ${c.nombre} ${c.apellido}, Email: ${c.email}, Teléfono: ${c.telefono}`);
+});
+
+//9 Función para unir dos arreglos de clientes
+function unirClientes(clientesExistentes, clientesNuevos) {
+  return clientesExistentes.concat(clientesNuevos);
+}
+
+// Función para filtrar clientes duplicados por id y mostrar solo los únicos
+function filtrarClientesUnicos(clientes) {
+  const ids = new Set();
+  const unicos = clientes.filter(cliente => {
+    if (ids.has(cliente.id)) {
+      return false;
+    } else {
+      ids.add(cliente.id);
+      return true;
+    }
+  });
+  return unicos;
+}
+
+// Ejemplo de uso:
+let nuevosClientes = [
+  new Cliente(5, "Ana", "Pérez", "ana@gmail.com", "123123123", true),
+  new Cliente(2, "Exequiel", "Muñoz", "otrocorreo@hotmail.com", "999999999", false), // Duplicado
+];
+console.log("Todos los clientes despues de Unir:");
+let todosLosClientes = unirClientes(clientes, nuevosClientes);
+mostrarClientes(todosLosClientes);
+// Filtrar clientes únicos
+let clientesUnicos = filtrarClientesUnicos(todosLosClientes);
+
+console.log("Clientes únicos después de la unión:");
+mostrarClientes(clientesUnicos);
+
+// 10. Simular consulta de cliente por id hasta que se ingrese uno válido
+function consultarClientePorId() {
+  let idValido = false;
+  let id;
+  id = parseInt(prompt("Ingrese el ID del cliente a consultar:"));
+  while (!idValido) {
+   
+    const cliente = clientes.find(c => c.id === id);
+    if (cliente) {
+      console.log(`Cliente encontrado: Nombre: ${cliente.nombre} ${cliente.apellido}, Email: ${cliente.email}, Teléfono: ${cliente.telefono}, Activo: ${cliente.activo}`);
+      idValido = true;
+    } else {
+      id = parseInt(prompt("ID No Valido, Por Favor Ingrese otro ID"));
+    }
+  }
+}
+consultarClientePorId();
+
+// Mostrar solo los clientes activos
+console.log("Clientes activos:");
+clientes.forEach(c => {
+  if (c.activo) {
+    console.log(`Nombre: ${c.nombre} ${c.apellido}, Email: ${c.email}, Teléfono: ${c.telefono}`);
+  }
+});
+
+// 11 Mostrar mensaje según el estado de cada cliente
+clientes.forEach(c => {
+  if (c.activo) {
+    console.log(`Cliente ACTIVO: ${c.nombre} ${c.apellido}, Email: ${c.email}, Teléfono: ${c.telefono}`);
+  } else {
+    console.log(`Cliente INACTIVO: ${c.nombre} ${c.apellido}, Email: ${c.email}, Teléfono: ${c.telefono}`);
+  }
+});
