@@ -57,6 +57,6 @@ Cada miembro del equipo debe documentar su código con comentarios explicativos 
 # Asignaciones
 Carlos: 1, 2 y 3,
 Jorge: 4 y 5, 
-Exequiel: 
-Willy:
+Exequiel: 7, 8, 9
+Willy: 10, 11
 Juan: 
